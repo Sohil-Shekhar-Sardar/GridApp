@@ -56,9 +56,6 @@ class GridViewScreenState extends State<GridViewScreen> {
                         Icons.search,
                         color: ColorsForApp.blackColor,
                       ),
-                      textInputFormatter: [
-                        FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z]')),
-                      ],
                       hintTextColor: ColorsForApp.blackColor.withOpacity(0.6),
                       focusedBorderColor: ColorsForApp.grayScale500,
                       keyboardType: TextInputType.text,
