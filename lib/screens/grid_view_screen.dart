@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import '../common_widgets/button.dart';
@@ -8,9 +9,14 @@ import '../routes/routes.dart';
 import '../utils/app_colors.dart';
 import '../utils/text_styles.dart';
 
-class GridViewScreen extends StatelessWidget {
-  GridViewScreen({super.key});
+class GridViewScreen extends StatefulWidget {
+  const GridViewScreen({super.key});
 
+  @override
+  State<GridViewScreen> createState() => _GridViewScreenState();
+}
+
+class _GridViewScreenState extends State<GridViewScreen> {
    GridViewController gridController = Get.find();
 
  int row = int.parse(Get.arguments[0]);
@@ -49,7 +55,9 @@ class GridViewScreen extends StatelessWidget {
                           Icons.search,
                           color: ColorsForApp.blackColor,
                         ),
-
+                        textInputFormatter: [
+                          FilteringTextInputFormatter.allow(RegExp(r'[A-Za-z]')),
+                        ],
                         hintTextColor: ColorsForApp.blackColor.withOpacity(0.6),
                         focusedBorderColor: ColorsForApp.grayScale500,
                         keyboardType: TextInputType.text,
@@ -138,6 +146,30 @@ class GridViewScreen extends StatelessWidget {
                               Get.offAllNamed(Routes.HOME_SCREEN);
                           },
                           label: 'Reset',
+                        ),
+                        CommonButton(
+                          width: 30.w,
+                          onPressed: () {
+                            gridController.characterList.clear();
+                            setState(() {
+                              int temp = 0;
+                              temp = column;
+                              column = row;
+                              row = temp;
+                            });
+                            if(gridController.gridFormKey.currentState!.validate()){
+                              FocusScope.of(context).unfocus();
+                              for(int i = 0;i < gridController.alphabetInputController.text.trim().length;i++){
+                                gridController.characterList.add(gridController.alphabetInputController.text[i]);
+                              }
+                              if( gridController.alphabetInputController.text.trim().length==(row*column)){
+                                gridController.isSearchBarVisible.value=true;
+                                gridController.isGridViewVisible.value=true;
+                              }
+                            }
+
+                          },
+                          label: 'Interchange',
                         ),
 
                       ],
