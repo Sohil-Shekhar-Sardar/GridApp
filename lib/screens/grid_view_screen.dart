@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import '../common_widgets/button.dart';
 import '../common_widgets/constant_widgets.dart';
 import '../controller/grid_view_controller.dart';
@@ -41,7 +40,7 @@ class GridViewScreenState extends State<GridViewScreen> {
                     child: Card(
                       color: ColorsForApp.whiteColor,
                       elevation: 5,
-                      margin: EdgeInsets.only(top: 2.h, right: 15, left: 15),
+                      margin: EdgeInsets.only(right: 15, left: 15),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(7),
                       ),
@@ -86,7 +85,7 @@ class GridViewScreenState extends State<GridViewScreen> {
                       ),
                     ),
                   ),
-                  height(3.h),
+                  SizedBox(height: 10,),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: CustomTextField(
@@ -116,14 +115,12 @@ class GridViewScreenState extends State<GridViewScreen> {
                       },
                     ),
                   ),
-                  height(4.h),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         CommonButton(
-                          width: 30.w,
                           onPressed: () {
                             gridController.characterList.clear();
                             if(gridFormKey.currentState!.validate()){
@@ -141,7 +138,6 @@ class GridViewScreenState extends State<GridViewScreen> {
                           label: 'Submit',
                         ),
                         CommonButton(
-                          width: 30.w,
                           onPressed: () {
                               gridController.mInputController.clear();
                               gridController.nInputController.clear();
@@ -152,7 +148,6 @@ class GridViewScreenState extends State<GridViewScreen> {
                           label: 'Reset',
                         ),
                         CommonButton(
-                          width: 30.w,
                           onPressed: () {
                             gridController.characterList.clear();
                             setState(() {
@@ -180,7 +175,6 @@ class GridViewScreenState extends State<GridViewScreen> {
                     ),
                   ),
 
-                  height(4.h),
                   Visibility(
                     visible: gridController.isGridViewVisible.value,
                     child: Expanded(

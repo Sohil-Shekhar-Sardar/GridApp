@@ -12,7 +12,6 @@ dependencies:
 
   flutter_native_splash:
   get: ^4.6.5
-  sizer: ^2.0.15
 
 dev_dependencies:
   flutter_test:

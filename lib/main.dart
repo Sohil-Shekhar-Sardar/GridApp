@@ -3,7 +3,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get_core/src/smart_management.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:grid_search_app/routes/app_pages.dart';
-import 'package:sizer/sizer.dart';
 import 'binding/grid_view_binding.dart';
 
 
@@ -31,8 +30,6 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    return Sizer(
-      builder: (BuildContext context, Orientation orientation, DeviceType deviceType) {
         return GetMaterialApp(
           debugShowCheckedModeBanner: false,
           smartManagement: SmartManagement.full,
@@ -41,7 +38,5 @@ class _MyAppState extends State<MyApp> {
           initialRoute:AppPages.INITIAL_ROUTE,
           initialBinding: GridViewBinding(),
         );
-      },
-    );
   }
 }

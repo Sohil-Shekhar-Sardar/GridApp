@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sizer/sizer.dart';
-
 import '../utils/app_colors.dart';
 import '../utils/text_styles.dart';
 
-SizedBox height(double h) => SizedBox(height: h);
-
-SizedBox width(double w) => SizedBox(width: w);
 
 class CommonButton extends StatelessWidget {
   final Function()? onPressed;
@@ -37,8 +32,8 @@ class CommonButton extends StatelessWidget {
     return GestureDetector(
       onTap: onPressed,
       child: Container(
-        height: height ?? 5.5.h,
-        width: width ?? 100.w,
+        height: height ?? MediaQuery.of(context).size.height*0.05,
+        width: width ?? MediaQuery.of(context).size.width*0.25,
         decoration: BoxDecoration(
           color: bgColor ?? ColorsForApp.primaryColor,
           borderRadius: BorderRadius.circular(100),
@@ -60,7 +55,7 @@ class CommonButton extends StatelessWidget {
         child: Text(
           label,
           style: style ??
-              TextHelper.size16.copyWith(
+              TextHelper.size13.copyWith(
                 fontFamily: mediumFont,
                 color: labelColor ?? ColorsForApp.whiteColor,
               ),

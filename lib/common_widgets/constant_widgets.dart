@@ -3,7 +3,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:sizer/sizer.dart';
 import '../utils/app_colors.dart';
 import '../utils/text_styles.dart';
 
@@ -105,7 +104,7 @@ class CustomTextField extends StatelessWidget {
               style: labelStyle,
             ),
           ),
-          SizedBox(height: 0.8.h),
+          SizedBox(height: 5),
           TextFormField(
             style: style ??
                 TextHelper.size15.copyWith(

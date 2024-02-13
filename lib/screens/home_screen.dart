@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:sizer/sizer.dart';
 import '../common_widgets/button.dart';
 import '../common_widgets/constant_widgets.dart';
 import '../controller/grid_view_controller.dart';
@@ -27,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           key: inputFormKey,
           child: Column(
             children: [
-              height(5.h),
+              SizedBox(height: 15),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
                 child: Column(
@@ -55,7 +54,7 @@ class HomeScreen extends StatelessWidget {
                         }
                       },
                     ),
-                    height(3.h),
+                    SizedBox(height:15),
                     CustomTextField(
                       controller: gridController.nInputController,
                       hintText: 'Enter number of columns',
@@ -83,12 +82,9 @@ class HomeScreen extends StatelessWidget {
                   ],
                 ),
               ),
-              height(4.h),
-
-              //LottieBuilder.asset(Assets.animationsGridAnimation,width: 80.w,),
-
+            SizedBox(height: 15,),
               CommonButton(
-                width: 50.w,
+                width: 50,
                 onPressed: () {
                   if(inputFormKey.currentState!.validate()){
                     Get.toNamed(Routes.GRID_VIEW_SCREEN,
@@ -101,7 +97,7 @@ class HomeScreen extends StatelessWidget {
                 },
                 label: 'Start',
               ),
-              height(4.h),
+              SizedBox(height:100),
             ],
           ),
         ),
