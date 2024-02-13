@@ -13,11 +13,12 @@ class GridViewScreen extends StatefulWidget {
   const GridViewScreen({super.key});
 
   @override
-  State<GridViewScreen> createState() => _GridViewScreenState();
+  State<GridViewScreen> createState() => GridViewScreenState();
 }
 
-class _GridViewScreenState extends State<GridViewScreen> {
+class GridViewScreenState extends State<GridViewScreen> {
    GridViewController gridController = Get.find();
+   GlobalKey<FormState> gridFormKey = GlobalKey<FormState>();
 
  int row = int.parse(Get.arguments[0]);
  int column = int.parse(Get.arguments[1]);
@@ -32,7 +33,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
           backgroundColor: Colors.deepPurple,
         ),
         body:   Form(
-          key: gridController.gridFormKey,
+          key: gridFormKey,
           child: Obx(()=> Column(
                 children: [
                   Visibility(
@@ -65,7 +66,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                         textInputAction: TextInputAction.search,
                         onChange: (value) {
                           // searchFromList(value);
-                          if(gridController.characterList.contains(value)){
+                          if(gridController.characterList.contains(value.toLowerCase())){
                             gridController.matchAlphabet.value = 1;
                             FocusScope.of(context).unfocus();
                           }else{
@@ -125,11 +126,12 @@ class _GridViewScreenState extends State<GridViewScreen> {
                           width: 30.w,
                           onPressed: () {
                             gridController.characterList.clear();
-                            if(gridController.gridFormKey.currentState!.validate()){
+                            if(gridFormKey.currentState!.validate()){
                               FocusScope.of(context).unfocus();
                              for(int i = 0;i < gridController.alphabetInputController.text.trim().length;i++){
-                               gridController.characterList.add(gridController.alphabetInputController.text[i]);
+                               gridController.characterList.add(gridController.alphabetInputController.text[i].toLowerCase());
                              }
+                             print(gridController.characterList);
                              if( gridController.alphabetInputController.text.trim().length==(row*column)){
                                gridController.isSearchBarVisible.value=true;
                                gridController.isGridViewVisible.value=true;
@@ -141,6 +143,8 @@ class _GridViewScreenState extends State<GridViewScreen> {
                         CommonButton(
                           width: 30.w,
                           onPressed: () {
+                              gridController.mInputController.clear();
+                              gridController.nInputController.clear();
                               gridController.alphabetInputController.clear();
                               gridController.characterList.clear();
                               Get.offAllNamed(Routes.HOME_SCREEN);
@@ -157,7 +161,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                               column = row;
                               row = temp;
                             });
-                            if(gridController.gridFormKey.currentState!.validate()){
+                            if(gridFormKey.currentState!.validate()){
                               FocusScope.of(context).unfocus();
                               for(int i = 0;i < gridController.alphabetInputController.text.trim().length;i++){
                                 gridController.characterList.add(gridController.alphabetInputController.text[i]);
@@ -193,7 +197,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                   child: GridTile(
                                     child: AnimatedContainer(
                                       decoration: BoxDecoration(
-                                        color: gridController.matchAlphabet.value == 1 && gridController.characterList[index] == gridController.searchCharacterController.text ? Colors.orangeAccent : Colors.blue,
+                                        color: gridController.matchAlphabet.value == 1 && gridController.characterList[index].toLowerCase() == gridController.searchCharacterController.text.toLowerCase() ? Colors.orangeAccent : Colors.blue,
                                       ),
                                     // Example background color
                                       duration: const Duration(seconds: 1),
@@ -201,7 +205,7 @@ class _GridViewScreenState extends State<GridViewScreen> {
                                         child: Text(
                                           gridController.characterList[index],
                                           style: TextHelper.size14.copyWith(
-                                            fontFamily: gridController.matchAlphabet.value == 1 && gridController.characterList[index] == gridController.searchCharacterController.text ? boldFont:regularFont,
+                                            fontFamily: gridController.matchAlphabet.value == 1 && gridController.characterList[index].toLowerCase() == gridController.searchCharacterController.text.toLowerCase() ? boldFont:regularFont,
                                             color: ColorsForApp.whiteColor,),
                                         ),
                                       ),

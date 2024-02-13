@@ -10,12 +10,9 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^1.0.2
-  flutter_lints: ^2.0.0
   flutter_native_splash:
   get: ^4.6.5
   sizer: ^2.0.15
-  lottie: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -32,4 +29,4 @@ flutter:
 
 flutter_native_splash:
   color: "#ffffff"
-  image: "assets/images/gridlogo.png"
+  image: "assets/images/splash.png"

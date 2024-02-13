@@ -3,6 +3,6 @@ class Assets {
   Assets._();
 
   static const String animationsGridAnimation = 'assets/animations/GridAnimation.json';
-  static const String imagesGridlogo = 'assets/images/gridlogo.png';
+  static const String imagesGridlogo = 'assets/images/splash.png';
 
 }
