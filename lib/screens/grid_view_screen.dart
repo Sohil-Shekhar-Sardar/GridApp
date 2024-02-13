@@ -96,7 +96,7 @@ class GridViewScreenState extends State<GridViewScreen> {
                       focusedBorderColor: Colors.grey.shade200,
                       keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.done,
-                      labelText: "Characters",
+                      labelText: "Inputs",
                       maxLength: column*row,
                       labelStyle: TextHelper.size14.copyWith(
                         fontFamily: boldFont,

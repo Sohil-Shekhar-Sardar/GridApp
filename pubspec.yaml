@@ -25,7 +25,16 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
-    - assets/animations/
+  fonts:
+    - family: GoogleSansTextRegular
+      fonts:
+        - asset: fonts/GoogleSansText-Regular.ttf
+    - family: GoogleSansTextMedium
+      fonts:
+        - asset: fonts/GoogleSansText-Medium.ttf
+    - family: GoogleSansTextBold
+      fonts:
+        - asset: fonts/GoogleSansText-Bold.ttf
 
 flutter_native_splash:
   color: "#ffffff"

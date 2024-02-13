@@ -43,17 +43,17 @@ class HomeScreen extends StatelessWidget {
                       labelStyle: TextHelper.size14.copyWith(
                           fontFamily: boldFont,
                           color: ColorsForApp.blackColor,),
-                      // validator: (value){
-                      //   if(value!.trim().isEmpty){
-                      //     return "Please enter number of rows";
-                      //   }else if(!GetUtils.isNum(value)){
-                      //     return "PLease enter number";
-                      //   } else if(value == "0"){
-                      //     return "Please enter number greater than zero";
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
+                      validator: (value){
+                        if(value!.trim().isEmpty){
+                          return "Please enter number of rows";
+                        }else if(!GetUtils.isNum(value)){
+                          return "PLease enter number";
+                        } else if(value == "0"){
+                          return "Please enter number greater than zero";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
                     height(3.h),
                     CustomTextField(
@@ -67,17 +67,17 @@ class HomeScreen extends StatelessWidget {
                       labelStyle: TextHelper.size14.copyWith(
                           fontFamily: boldFont,
                           color: ColorsForApp.blackColor,),
-                      // validator: (value){
-                      //   if(value!.trim().isEmpty){
-                      //     return "Please enter number of columns";
-                      //   }else if(!GetUtils.isNum(value)){
-                      //     return "PLease enter number";
-                      //   } else if(value == "0"){
-                      //     return "Please enter number greater than zero";
-                      //   } else {
-                      //     return null;
-                      //   }
-                      // },
+                      validator: (value){
+                        if(value!.trim().isEmpty){
+                          return "Please enter number of columns";
+                        }else if(!GetUtils.isNum(value)){
+                          return "PLease enter number";
+                        } else if(value == "0"){
+                          return "Please enter number greater than zero";
+                        } else {
+                          return null;
+                        }
+                      },
                     ),
 
                   ],
