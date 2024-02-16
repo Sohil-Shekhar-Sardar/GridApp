@@ -133,10 +133,12 @@ class GridViewScreenState extends State<GridViewScreen> {
                             gridController.isSearchBarVisible.value = true;
                             gridController.isGridViewVisible.value = true;
                           }
-                          if(searchWordInMatrix(gridController.characterList, gridController.searchCharacterController.text)){
-                            successSnackBar(message: "Word Found in Grid");
-                          }else{
-                            errorSnackBar(message:"Word not Found in Grid");
+                          if(gridController.searchCharacterController.text.isNotEmpty){
+                            if(searchWordInMatrix(gridController.characterList, gridController.searchCharacterController.text)){
+                              successSnackBar(message: "Word Found in Grid");
+                            }else{
+                              errorSnackBar(message:"Word not Found in Grid");
+                            }
                           }
                         }
                         },
