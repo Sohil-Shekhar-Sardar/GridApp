@@ -20,6 +20,7 @@ class GridViewScreenState extends State<GridViewScreen> {
 
   int row = int.parse(Get.arguments[0]);
   int column = int.parse(Get.arguments[1]);
+  bool isRow = false;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +134,6 @@ class GridViewScreenState extends State<GridViewScreen> {
                             gridController.isGridViewVisible.value = true;
                           }
                         }
-                        wordFound();
                         },
                       label: 'Submit',
                     ),
@@ -150,55 +150,7 @@ class GridViewScreenState extends State<GridViewScreen> {
                     ),
                     CommonButton(
                       onPressed: () {
-                        gridController.characterList.clear();
-                        gridController.checkList.clear();
-                        if (gridFormKey.currentState!.validate()) {
-                          FocusScope.of(context).unfocus();
-                          int temp = 0;
-                          setState(() {
-                            temp = column;
-                            column = row;
-                            row = temp;
-                            if (gridController.isInterChange.isFalse) {
-                              for (int i = 0; i < row; i++) {
-                                gridController.characterList.add([]);
-                                for (int j = 0; j < column; j++) {
-                                  gridController.characterList[i].add(gridController
-                                      .alphabetInputController.text[i *
-                                          (row == column ? row : 3) +
-                                      j]); // Calculate index to access elements from listText
-                                  gridController.checkList.add(gridController
-                                      .characterList[i][j]
-                                      .trim()
-                                      .toLowerCase());
-                                }
-                              }
-                              gridController.isInterChange.value = true;
-                            } else {
-                              for (int i = 0; i < row; i++) {
-                                gridController.characterList.add([]);
-                                for (int j = 0; j < column; j++) {
-                                  gridController.characterList[i].add(gridController
-                                      .alphabetInputController.text[j *
-                                          (row == column ? row : 3) +
-                                      i]); // Calculate index to access elements from listText
-                                  gridController.checkList.add(gridController
-                                      .characterList[i][j]
-                                      .trim()
-                                      .toLowerCase());
-                                }
-                              }
-                              gridController.isInterChange.value = false;
-                            }
-                          });
-                          if (gridController.alphabetInputController.text
-                                  .trim()
-                                  .length ==
-                              (row * column)) {
-                            gridController.isSearchBarVisible.value = true;
-                            gridController.isGridViewVisible.value = true;
-                          }
-                        }
+                        interChange();
                       },
                       label: 'Interchange',
                     ),
@@ -262,12 +214,55 @@ class GridViewScreenState extends State<GridViewScreen> {
       }
   }
 
-  wordFound(){
-    bool result = gridController.alphabetInputController.text.contains(gridController.searchCharacterController.text);
-    if (result == false) {
-      errorSnackBar(message: "Word not found in Grid.");
-    } else {
-      successSnackBar(message: "Word found in Grid.");
+  interChange(){
+    gridController.characterList.clear();
+    gridController.checkList.clear();
+    if (gridFormKey.currentState!.validate()) {
+      FocusScope.of(context).unfocus();
+      int temp = 0;
+      setState(() {
+        temp = column;
+        column = row;
+        row = temp;
+        if (gridController.isInterChange.isFalse) {
+          for (int i = 0; i < row; i++) {
+            gridController.characterList.add([]);
+            for (int j = 0; j < column; j++) {
+              gridController.characterList[i].add(gridController
+                  .alphabetInputController.text[i *
+                  (row == column ? row : 3) +
+                  j]); // Calculate index to access elements from listText
+              gridController.checkList.add(gridController
+                  .characterList[i][j]
+                  .trim()
+                  .toLowerCase());
+            }
+          }
+          gridController.isInterChange.value = true;
+        } else {
+          for (int i = 0; i < row; i++) {
+            gridController.characterList.add([]);
+            for (int j = 0; j < column; j++) {
+              gridController.characterList[i].add(gridController
+                  .alphabetInputController.text[j *
+                  (row == column ? row : 3) +
+                  i]); // Calculate index to access elements from listText
+              gridController.checkList.add(gridController
+                  .characterList[i][j]
+                  .trim()
+                  .toLowerCase());
+            }
+          }
+          gridController.isInterChange.value = false;
+        }
+      });
+      if (gridController.alphabetInputController.text
+          .trim()
+          .length ==
+          (row * column)) {
+        gridController.isSearchBarVisible.value = true;
+        gridController.isGridViewVisible.value = true;
+      }
     }
   }
 
