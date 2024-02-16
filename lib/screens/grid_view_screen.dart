@@ -57,21 +57,10 @@ class GridViewScreenState extends State<GridViewScreen> {
                     hintTextColor: ColorsForApp.blackColor.withOpacity(0.6),
                     focusedBorderColor: ColorsForApp.grayScale500,
                     keyboardType: TextInputType.text,
-                    maxLength: 1,
                     textInputAction: TextInputAction.search,
-                    onChange: (value) {
-                      // searchFromList(value);
-                      if (gridController.checkList
-                          .contains(value.toLowerCase())) {
-                        gridController.matchAlphabet.value = 1;
-                        FocusScope.of(context).unfocus();
-                      } else {
-                        gridController.matchAlphabet.value = 0;
-                      }
-                    },
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return "Please enter characters";
+                        return "Please enter word";
                       } else {
                         return null;
                       }
@@ -144,7 +133,8 @@ class GridViewScreenState extends State<GridViewScreen> {
                             gridController.isGridViewVisible.value = true;
                           }
                         }
-                      },
+                        wordFound();
+                        },
                       label: 'Submit',
                     ),
                     CommonButton(
@@ -231,16 +221,9 @@ class GridViewScreenState extends State<GridViewScreen> {
                             child: GridTile(
                               child: AnimatedContainer(
                                 decoration: BoxDecoration(
-                                  color:
-                                      gridController.matchAlphabet.value == 1 &&
-                                              gridController.checkList[index]
-                                                      .toLowerCase() ==
-                                                  gridController
-                                                      .searchCharacterController
-                                                      .text
-                                                      .toLowerCase()
+                                  color: searchWord(gridController.checkList[index])
                                           ? Colors.orangeAccent
-                                          : Colors.blue,
+                                          : Colors.purple,
                                 ),
                                 // Example background color
                                 duration: const Duration(seconds: 1),
@@ -248,15 +231,7 @@ class GridViewScreenState extends State<GridViewScreen> {
                                   child: Text(
                                     gridController.checkList[index],
                                     style: TextHelper.size14.copyWith(
-                                      fontFamily: gridController
-                                                      .matchAlphabet.value ==
-                                                  1 &&
-                                              gridController.checkList[index]
-                                                      .toLowerCase() ==
-                                                  gridController
-                                                      .searchCharacterController
-                                                      .text
-                                                      .toLowerCase()
+                                      fontFamily: searchWord(gridController.checkList[index])
                                           ? boldFont
                                           : regularFont,
                                       color: ColorsForApp.whiteColor,
@@ -277,4 +252,23 @@ class GridViewScreenState extends State<GridViewScreen> {
       ),
     );
   }
+
+  searchWord (String word) {
+    List<String> wordList = gridController.searchCharacterController.text.split("");
+      if(wordList.contains(word) && wordList.length<=gridController.checkList.length){
+        return true;
+      }else{
+        return false;
+      }
+  }
+
+  wordFound(){
+    bool result = gridController.alphabetInputController.text.contains(gridController.searchCharacterController.text);
+    if (result == false) {
+      errorSnackBar(message: "Word not found in Grid.");
+    } else {
+      successSnackBar(message: "Word found in Grid.");
+    }
+  }
+
 }
