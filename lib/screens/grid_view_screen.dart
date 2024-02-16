@@ -133,6 +133,11 @@ class GridViewScreenState extends State<GridViewScreen> {
                             gridController.isSearchBarVisible.value = true;
                             gridController.isGridViewVisible.value = true;
                           }
+                          if(searchWordInMatrix(gridController.characterList, gridController.searchCharacterController.text)){
+                            successSnackBar(message: "Word Found in Grid");
+                          }else{
+                            errorSnackBar(message:"Word not Found in Grid");
+                          }
                         }
                         },
                       label: 'Submit',
@@ -264,6 +269,41 @@ class GridViewScreenState extends State<GridViewScreen> {
         gridController.isGridViewVisible.value = true;
       }
     }
+  }
+
+  bool searchWordInMatrix(List<List<String>> list, String word) {
+    // Define directions: horizontal, vertical, and diagonal
+    List<List<int>> directions = [
+      [1, 0],   // horizontal
+      [0, 1],   // vertical
+      [1, 1],   // diagonal (top-left to bottom-right)
+      [-1, 1]   // diagonal (bottom-left to top-right)
+    ];
+
+    for (int r = 0; r < row; r++) {
+      for (int c = 0; c < column; c++) {
+        // Check word starting from each cell in the matrix
+        for (var direction in directions) {
+          int dr = direction[0];
+          int dc = direction[1];
+          int rEnd = r + (word.length - 1) * dr;
+          int cEnd = c + (word.length - 1) * dc;
+
+          // Check if the word can fit starting from the current cell in the current direction
+          if (rEnd >= 0 && rEnd < row && cEnd >= 0 && cEnd < column) {
+            bool found = true;
+            for (int i = 0; i < word.length; i++) {
+              if (list[r + i * dr][c + i * dc] != word[i]) {
+                found = false;
+                break;
+              }
+            }
+            if (found) return true;
+          }
+        }
+      }
+    }
+    return false;
   }
 
 }
